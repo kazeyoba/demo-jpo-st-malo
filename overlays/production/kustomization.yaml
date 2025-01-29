@@ -18,8 +18,8 @@ images:
   newTag: "latest"
 - name: dockersamples/examplevotingapp_vote
   newTag: "latest"
-- name: bitnami/redis:latest
-  newTag: "7.4.2"
+- name: redis
+  newTag: "latest"
 patches:
 - target:
     kind: Deployment
