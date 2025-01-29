@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: jpo-ingress
+spec:
+  rules:
+  - host: jpo-stmalo-dev.kaze-cloud.fr
+    http:
+      paths:
+      - path: /vote
+        pathType: Prefix
+        backend:
+          service:
+            name: vote-service
+            port:
+              number: 8080
+      - path: /result
+        pathType: Prefix
+        backend:
+          service:
+            name: result-service
+            port:
+              number: 8081

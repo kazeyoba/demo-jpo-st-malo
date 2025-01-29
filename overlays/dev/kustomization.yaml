@@ -1,0 +1,51 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- ../../base/database
+- ../../base/redis
+- ../../base/result
+- ../../base/vote
+- ../../base/worker
+- voting-ingress.yaml
+commonLabels:
+  environment: production
+images:
+- name: postgres
+  newTag: "15-alpine"
+- name: redis
+  newTag: "alpine"
+- name: dockersamples/examplevotingapp_result
+  newTag: "pr-307"
+- name: dockersamples/examplevotingapp_vote
+  newTag: "pr-311"
+- name: bitnami/redis:latest
+  newTag: "7.4.2"
+patches:
+- target:
+    kind: Deployment
+    name: result
+  patch: |-
+    - op: replace
+      path: /spec/replicas
+      value: 3
+- target:
+    kind: Deployment
+    name: vote
+  patch: |-
+    - op: replace
+      path: /spec/replicas
+      value: 3
+- target:
+    kind: Deployment
+    name: db
+  patch: |-
+    - op: replace
+      path: /spec/replicas
+      value: 1
+- target:
+    kind: Deployment
+    name: redis
+  patch: |-
+    - op: replace
+      path: /spec/replicas
+      value: 1
