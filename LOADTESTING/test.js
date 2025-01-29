@@ -17,20 +17,17 @@ export default function () {
     'Page chargée avec succès': (r) => r.status === 200,
   });
 
-  let voterId = res.cookies.voter_id ? res.cookies.voter_id[0].value : null;
-
-  if (!voterId) {
-    console.error('Aucun voter_id trouvé');
-    return;
-  }
-
   const choices = ['a', 'b'];
   let voteChoice = choices[Math.floor(Math.random() * choices.length)];
 
-  let payload = JSON.stringify({ voter_id: voterId, vote: voteChoice });
+  let payload = JSON.stringify({ vote: voteChoice });
   let params = { headers: { 'Content-Type': 'application/json' } };
   let voteRes = http.post(`${BASE_URL}/`, payload, params);
   voteResponseTime.add(voteRes.timings.duration);
+
+  check(voteRes, {
+    'Vote soumis avec succès': (r) => r.status === 200,
+  });
 
   sleep(1);
 }
