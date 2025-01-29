@@ -7,6 +7,7 @@ resources:
 - ../../base/vote
 - ../../base/worker
 - voting-ingress.yaml
+- hpa.yaml
 commonLabels:
   environment: production
 images:
@@ -20,32 +21,3 @@ images:
   newTag: "latest"
 - name: redis
   newTag: "latest"
-patches:
-- target:
-    kind: Deployment
-    name: result
-  patch: |-
-    - op: replace
-      path: /spec/replicas
-      value: 1
-- target:
-    kind: Deployment
-    name: vote
-  patch: |-
-    - op: replace
-      path: /spec/replicas
-      value: 1
-- target:
-    kind: Deployment
-    name: db
-  patch: |-
-    - op: replace
-      path: /spec/replicas
-      value: 1
-- target:
-    kind: Deployment
-    name: redis
-  patch: |-
-    - op: replace
-      path: /spec/replicas
-      value: 1
