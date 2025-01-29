@@ -4,7 +4,7 @@ metadata:
   name: jpo-ingress
 spec:
   rules:
-  - host: jpo-stmalo.kaze-cloud.fr
+  - host: vote.kaze-cloud.fr
     http:
       paths:
       - path: /
@@ -14,10 +14,14 @@ spec:
             name: vote
             port:
               number: 8080
-      - path: /result
-        pathType: Prefix
-        backend:
-          service:
-            name: result
-            port:
-              number: 8081
+
+  - host: result.kaze-cloud.fr
+    http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: result
+              port:
+                number: 8081
