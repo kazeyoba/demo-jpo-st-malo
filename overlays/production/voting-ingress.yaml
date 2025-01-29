@@ -7,7 +7,7 @@ spec:
   - host: jpo-stmalo.kaze-cloud.fr
     http:
       paths:
-      - path: /vote
+      - path: /
         pathType: Prefix
         backend:
           service:
