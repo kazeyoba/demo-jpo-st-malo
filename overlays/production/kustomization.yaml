@@ -35,17 +35,3 @@ patches:
     - op: replace
       path: /spec/replicas
       value: 3
-- target:
-    kind: Deployment
-    name: db
-  patch: |-
-    - op: replace
-      path: /spec/replicas
-      value: 1
-- target:
-    kind: Deployment
-    name: redis
-  patch: |-
-    - op: replace
-      path: /spec/replicas
-      value: 1
