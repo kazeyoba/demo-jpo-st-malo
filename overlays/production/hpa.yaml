@@ -27,7 +27,7 @@ spec:
       policies:
       - type: Pods
         value: 1
-        periodSeconds: 60
+        periodSeconds: 20
       - type: Percent
         value: 50
-        periodSeconds: 60
+        periodSeconds: 20
