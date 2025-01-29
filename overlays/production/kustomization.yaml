@@ -3,9 +3,9 @@ kind: Kustomization
 resources:
 - ../../base/database
 - ../../base/redis
-- ../../base/result
-- ../../base/vote
-- ../../base/worker
+#- ../../base/result
+#- ../../base/vote
+#- ../../base/worker
 - voting-ingress.yaml
 commonLabels:
   environment: production
