@@ -15,9 +15,9 @@ images:
 - name: redis
   newTag: "alpine"
 - name: dockersamples/examplevotingapp_result
-  newTag: "pr-307"
+  newTag: "latest"
 - name: dockersamples/examplevotingapp_vote
-  newTag: "pr-311"
+  newTag: "latest"
 - name: bitnami/redis:latest
   newTag: "7.4.2"
 patches:
