@@ -18,6 +18,6 @@ images:
 - name: dockersamples/examplevotingapp_result
   newTag: "latest"
 - name: harbor.kaze-cloud.fr/public/voting:latest
-  newTag: "1.0"
+  newTag: "2.0"
 - name: redis
   newTag: "latest"
