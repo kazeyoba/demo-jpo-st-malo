@@ -4,6 +4,8 @@ metadata:
   labels:
     app: db
   name: db
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
 spec:
   type: ClusterIP
   ports:

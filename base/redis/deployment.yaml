@@ -1,7 +1,11 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  labels:
+    app: redis
   name: redis
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
 spec:
   replicas: 1
   selector:
@@ -13,22 +17,14 @@ spec:
         app: redis
     spec:
       containers:
-      - name: redis
-        image: bitnami/redis:latest
-        env:
-        - name: ALLOW_EMPTY_PASSWORD
-          value: "yes"
-        resources:
-          requests:
-            memory: "256Mi"
-            cpu: "250m"
-          limits:
-            memory: "512Mi"
-            cpu: "500m"
+      - image: redis:latest
+        name: redis
+        ports:
+        - containerPort: 6379
+          name: redis
         volumeMounts:
-        - mountPath: /bitnami/redis/data
-          name: redis-storage
+        - mountPath: /data
+          name: redis-data
       volumes:
-        - name: redis-storage
-          persistentVolumeClaim:
-            claimName: redis-pvc
+      - name: redis-data
+        emptyDir: {} 

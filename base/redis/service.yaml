@@ -4,6 +4,8 @@ metadata:
   labels:
     app: redis
   name: redis
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
 spec:
   type: ClusterIP
   ports:
@@ -12,3 +14,4 @@ spec:
     targetPort: 6379
   selector:
     app: redis
+  

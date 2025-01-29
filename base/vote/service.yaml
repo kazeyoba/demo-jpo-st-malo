@@ -4,6 +4,8 @@ metadata:
   labels:
     app: vote
   name: vote
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
 spec:
   selector:
     app: vote
