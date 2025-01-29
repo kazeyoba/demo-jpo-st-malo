@@ -5,7 +5,7 @@ resources:
 - ../../base/redis
 - ../../base/result
 - ../../base/vote
-- ../../base/worker
+#- ../../base/worker
 - voting-ingress.yaml
 - hpa.yaml
 commonLabels:
