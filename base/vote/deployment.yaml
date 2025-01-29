@@ -17,7 +17,7 @@ spec:
         app: vote
     spec:
       containers:
-      - image: harbor.kaze-cloud.fr/public/voting:latest
+      - image: dockersamples/examplevotingapp_vote
         name: vote
         ports:
         - containerPort: 80

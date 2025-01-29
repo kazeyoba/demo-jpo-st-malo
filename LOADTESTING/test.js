@@ -2,32 +2,44 @@ import http from 'k6/http';
 import { check, sleep } from 'k6';
 import { Trend } from 'k6/metrics';
 
+// Définition de l'URL de base
 const BASE_URL = 'https://vote.kaze-cloud.fr';
 
-let voteResponseTime = new Trend('vote_response_time');
+// Création de métriques personnalisées
+let getResponseTime = new Trend('get_response_time');
+let postResponseTime = new Trend('post_response_time');
 
 export let options = {
-  vus: 10,
-  duration: '30s',
+    vus: 50,
+    duration: '30s',
 };
 
 export default function () {
-  let res = http.get(`${BASE_URL}`);
-  check(res, {
-    'Page chargée avec succès': (r) => r.status === 200,
-  });
+    let res = http.get(BASE_URL);
+    check(res, {
+        'GET - Statut 200': (r) => r.status === 200,
+        'GET - Contient le formulaire': (r) => r.body.includes('<form'),
+    });
 
-  const choices = ['a', 'b'];
-  let voteChoice = choices[Math.floor(Math.random() * choices.length)];
+    getResponseTime.add(res.timings.duration);
 
-  let payload = JSON.stringify({ vote: voteChoice });
-  let params = { headers: { 'Content-Type': 'application/json' } };
-  let voteRes = http.post(`${BASE_URL}/`, payload, params);
-  voteResponseTime.add(voteRes.timings.duration);
+    let cookies = res.cookies['voter_id'] ? `voter_id=${res.cookies['voter_id'][0]}` : '';
 
-  check(voteRes, {
-    'Vote soumis avec succès': (r) => r.status === 200,
-  });
+    let voteOption = Math.random() < 0.5 ? 'a' : 'b';
+    let postHeaders = {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Cookie': cookies,
+    };
+    let postData = `vote=${voteOption}`;
 
-  sleep(1);
+    let postRes = http.post(BASE_URL, postData, { headers: postHeaders });
+
+    check(postRes, {
+        'POST - Statut 200': (r) => r.status === 200,
+        'POST - Contient le vote': (r) => r.body.includes(voteOption),
+    });
+
+    postResponseTime.add(postRes.timings.duration);
+
+    sleep(1);
 }
