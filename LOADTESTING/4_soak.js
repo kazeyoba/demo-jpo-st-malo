@@ -2,16 +2,14 @@ import http from 'k6/http';
 import { check, sleep } from 'k6';
 import { Trend } from 'k6/metrics';
 
-// Définition de l'URL de base
 const BASE_URL = 'https://vote.kaze-cloud.fr';
 
-// Création de métriques personnalisées
 let getResponseTime = new Trend('get_response_time');
 let postResponseTime = new Trend('post_response_time');
 
 export let options = {
     vus: 50,
-    duration: '30s',
+    duration: '30m',
 };
 
 export default function () {
