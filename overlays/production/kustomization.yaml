@@ -17,7 +17,7 @@ images:
   newTag: "alpine"
 - name: dockersamples/examplevotingapp_result
   newTag: "latest"
-- name: harbor.kaze-cloud.fr/public/voting:latest
-  newTag: "2.0"
+- name: dockersamples/examplevotingapp_vote
+  newTag: "latest"
 - name: redis
   newTag: "latest"
