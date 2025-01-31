@@ -28,3 +28,8 @@ spec:
           limits:
             cpu: "500m"
             memory: "500Mi"
+        env:
+        - name: OPTION_A
+          value: "Beurre doux"
+        - name: OPTION_B
+          value: "Beurre demi-sel"
