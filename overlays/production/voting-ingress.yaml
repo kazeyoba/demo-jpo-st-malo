@@ -7,7 +7,7 @@ metadata:
     kubernetes.io/ingress.class: traefik
 spec:
   rules:
-  - host: vote.kube-nkp.dev
+  - host: 10.9.2.112
     http:
       paths:
       - path: /
@@ -17,13 +17,3 @@ spec:
             name: vote
             port:
               number: 8080
-  - host: result.kube-nkp.dev
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: result
-            port:
-              number: 8081
